@@ -1,7 +1,6 @@
 // server.js
 import express from "express";
 import cors from "cors";
-import { readJsonFile } from "./lib/utils.js";
 import router from "./routes/main.js";
 import puppeteer from "puppeteer"; // Importa o Puppeteer para simular o navegador
 
@@ -12,14 +11,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("json spaces", 2);
-
-// Endpoint raiz
-app.get("/", (req, res) => {
-  const myList = readJsonFile("./assets/animes.json");
-  return res
-    .status(200)
-    .json({ endpoints: ["/anime", "search?q="], animesAvaliable: myList });
-});
 
 // Rota de anime
 app.use("/anime", router);
